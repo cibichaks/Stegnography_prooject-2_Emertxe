@@ -8,6 +8,11 @@
 
 int main(int argc, char *argv[]){
     ///Checkinng operation type - encoding or decoding
+    if(argc == 1){
+	    printf("%s: Encoding: %s -e <.bmp file> <secret file> [output file name]--Optional\n",argv[0],argv[0]);
+	    printf("%s: Decoding: %s -d <.bmp file> [output file name]--Optional\n",argv[0],argv[0]);
+	    return 0;
+    }
     int perform = check_operation_type(argv);
     switch (perform){
 	    case e_decode :
@@ -34,7 +39,6 @@ int main(int argc, char *argv[]){
 				///validation things are done we procede with the encode
 			   if (do_encoding(&encInfo) == e_success){
 				   printf("INFO : ## Encoding Done Successfully ##\n");
-				   free(encInfo.secret_data);
 			   }
 			   else{
 				   return -1;

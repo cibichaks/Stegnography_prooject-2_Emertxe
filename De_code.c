@@ -162,6 +162,8 @@ Status Decode_Ushhhh_msg(DecodeInfo * decInfo){
 	if(fwrite(temp_secret_string,sizeof(char),fetch_mem,decInfo->fptr_deco) != fetch_mem){
 		printf("Error : While writing data to secret txt file happened\n");
 	}
+	free(temp_secret_string);
+	free(RGB_buffer);
 	return e_success;
 }
 

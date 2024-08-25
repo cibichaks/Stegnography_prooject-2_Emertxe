@@ -64,7 +64,7 @@ Status read_and_validate_encode_args(char *argv[], EncodeInfo *encInfo){
 
       	// step 1 ---- Input File validation
 	if (strstr(argv[2],".bmp") == NULL){
-		printf(".bmp nt detected \n");
+		printf("%s: Encoding: %s -e <.bmp file> <secret file> [output file name]--Optional\n",argv[0],argv[0]);
 		return e_failure;
 	}
 	else{
@@ -133,6 +133,7 @@ Status do_encoding(EncodeInfo *encInfo){
 										if(Encode_generic_string((int)encInfo->size_secret_file,encInfo->secret_data,encInfo) == e_success){
 											printf("INFO : Process done\n");
 											printf("INFO : Required Things Encoded\n");
+											free(encInfo->secret_data);
 											if(copy_remaining_img_data(encInfo) == e_success){
 												printf("INFO : Process done\n");
 												
