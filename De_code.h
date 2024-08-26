@@ -1,5 +1,4 @@
-#ifndef DE_CODE_H
-#define DE_CODE_H
+
 
 #include "types.h"
 
@@ -39,7 +38,6 @@ Status Decode_str(int *,char*,DecodeInfo*);
 
 Status Decode_Ushhhh_msg(DecodeInfo *);
 
-#endif 
 
 
 

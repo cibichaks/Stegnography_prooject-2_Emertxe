@@ -6,7 +6,12 @@
 
 
 Status read_and_validate_decode_args(char *argv[],DecodeInfo  *decInfo){
-	if (strstr(argv[2],".bmp") != NULL){
+	int count=0;
+	while (argv[count] != NULL){
+		count++;
+	}
+	
+	if (strstr(argv[2],".bmp") != NULL && (count >= 2) ){
 		decInfo->fname_enco=argv[2];
 	}
 	else{
@@ -29,22 +34,32 @@ Status Do_decode(DecodeInfo *decInfo){
 			if(fseek(decInfo->fptr_enco,54,SEEK_SET) == -1){
 				perror("fopen");
 			}
-		if(Decode_len(&decInfo->d_ms_len,decInfo) == e_success){
+			if(Decode_len(&decInfo->d_ms_len,decInfo) == e_success){
+				if(decInfo->d_ms_len > 20){
+				printf("ERROR : While encoding Got length as %d its not possible \n",decInfo->d_ms_len);
+				printf("ERROR : Provide the Propper encoded File there is no Encode Data \n");
+				return e_failure;
+			}
+
 			if(Decode_str(&decInfo->d_ms_len,decInfo->d_ms_string,decInfo) == e_success){
 				printf("ATTENTION : Enter the secret magic string :");
 				char magic_string[20];
-				int  validate = 1;
-				while(validate){
-					scanf("%[^\n]",magic_string);
-					getchar();
-					if((validate=strcmp(decInfo->d_ms_string,magic_string)) == 0 ){
-						printf("INFO : ## Magic strings are matching validation complete decoding secret file ##\n");
+				scanf("%[^\n]",decInfo->d_ms_string);
+				getchar();
+				if((strcmp(decInfo->d_ms_string,magic_string)) == 0 ){
+					printf("ALERT : Magic strings are not matching \n");
+					return e_failure;
 					}
-					else{
-						printf("ALERT : Magic strings are not matching Enter again : ");
+				else{
+					printf("INFO : ## Magic strings are matching validation complete decoding secret file ##\n");
 					}
 				}
 					if(Decode_len(&decInfo->d_sec_extn_len,decInfo)  == e_success){
+						if(decInfo->d_sec_extn_len > 5){
+							printf("ERROR : While encoding Got length as %d its not possible \n",decInfo->d_sec_extn_len);
+							printf("ERROR : Provide the Propper encoded File there is no Encode Data \n");
+							return e_failure;
+							}
 						if(Decode_str(&decInfo->d_sec_extn_len,decInfo->sec_extn,decInfo)== e_success){
 							strcat(decInfo->de_fname,decInfo->sec_extn);
 							printf("ATTENTION : After decode your encoded data present file %s that located in current directry\n",decInfo->de_fname);
@@ -85,10 +100,6 @@ Status Do_decode(DecodeInfo *decInfo){
 			return e_failure;
 		}
 	}
-	else{
-		return e_failure;
-	}
-}
 Status DE_openfiles (FILE **fptr,char *fname){
 	if((*fptr=fopen(fname,"r")) == NULL){
 
@@ -110,11 +121,14 @@ Status Decode_len(int *store,DecodeInfo *decInfo){
 		perror("fread");
 		return e_failure;
 	}
+
 	*store=0;
 	for(int i=0;i<32;i++){
 		char mask = RGB_buffer[i] & 1;
 		*store= *store | (mask<<i);
 	}
+	
+
 	//printf("decoded file length %d\n",*store);
 	return e_success;
 }

@@ -61,9 +61,9 @@ Status open_files(EncodeInfo *encInfo)
 
 
 Status read_and_validate_encode_args(char *argv[], EncodeInfo *encInfo){
-
+	
       	// step 1 ---- Input File validation
-	if (strstr(argv[2],".bmp") == NULL){
+	if (strstr(argv[2],".bmp") == NULL ){
 		printf("%s: Encoding: %s -e <.bmp file> <secret file> [output file name]--Optional\n",argv[0],argv[0]);
 		return e_failure;
 	}
@@ -74,7 +74,9 @@ Status read_and_validate_encode_args(char *argv[], EncodeInfo *encInfo){
 	// step 2 ---- Secret file validation
 	char *check=strchr(argv[3],'.');
 	if( check == NULL){
-		printf("Error : there is no .extention file");
+		printf("Error : there is no .extention file\n");
+
+		printf("%s: Encoding: %s -e <.bmp file> <secret file> [output file name]--Optional\n",argv[0],argv[0]);
 		return e_failure;
 	}
 	else{

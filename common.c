@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]){
     ///Checkinng operation type - encoding or decoding
-    if(argc == 1){
+    if(argc <= 1 ){
 	    printf("%s: Encoding: %s -e <.bmp file> <secret file> [output file name]--Optional\n",argv[0],argv[0]);
 	    printf("%s: Decoding: %s -d <.bmp file> [output file name]--Optional\n",argv[0],argv[0]);
 	    return 0;
@@ -35,8 +35,13 @@ int main(int argc, char *argv[]){
 		    break;
 	    case e_encode :
                    EncodeInfo encInfo;
+			if(argc <= 3){
+	    			printf("%s: Encoding: %s -e <.bmp file> <secret file> [output file name]--Optional\n",argv[0],argv[0]);
+				return 0;
+			   }
 		   if(read_and_validate_encode_args(argv,&encInfo) == e_success ){
-				///validation things are done we procede with the encode
+			   				///validation things are done we procede with the encode
+			printf("validating count");
 			   if (do_encoding(&encInfo) == e_success){
 				   printf("INFO : ## Encoding Done Successfully ##\n");
 			   }
