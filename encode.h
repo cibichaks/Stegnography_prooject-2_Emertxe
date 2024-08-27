@@ -1,3 +1,9 @@
+/*
+       Name : Cibi_Sakkaravarthi . K
+       Date : 27-aug-2024 : time 14 :20 
+Description : encode.h file of Stegnography project the encoding working functions are declared here
+*/
+
 #ifndef ENCODE_H
 #define ENCODE_H
 

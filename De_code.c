@@ -1,3 +1,8 @@
+/*
+       Name : Cibi_Sakkaravarthi . K
+       Date : 27-aug-2024 : time 14 :20 
+Description : De_code.c file of Stegnography project the encoding working functions are declared here
+*/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

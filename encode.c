@@ -1,3 +1,9 @@
+/*
+       Name : Cibi_Sakkaravarthi . K
+       Date : 27-aug-2024 : time 23:20 
+Description : encode.c file of Stegnography project the main encoding working functions are declared here
+*/
+
 #include <stdio.h>
 #include<stdlib.h>
 #include <string.h>
@@ -253,9 +259,13 @@ Status read_and_Validate_secret_file(EncodeInfo *encInfo){// store secret datas 
 	
 	fseek(encInfo->fptr_secret,0,SEEK_END);
 	encInfo->size_secret_file=(int)ftell(encInfo->fptr_secret);
+	if(encInfo->size_secret_file == 0){
+		printf("ERROR : Secret File is Empty Sorry I cann't encode Emty message \n");
+		return e_failure;
+	}
 	encInfo->secret_data=calloc(encInfo->size_secret_file*sizeof(char),1);// Dynamic Memorry allocation for secret Buffer to handle large size data
 	rewind(encInfo->fptr_secret);
-	if(fgets(encInfo->secret_data,MAX_SECRET_BUF_SIZE,encInfo->fptr_secret) == NULL ){
+	if(fgets(encInfo->secret_data,encInfo->size_secret_file,encInfo->fptr_secret) == NULL ){
 		return e_failure;
 	}
 	return e_success;

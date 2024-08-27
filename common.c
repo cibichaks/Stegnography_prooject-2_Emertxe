@@ -1,3 +1,8 @@
+/*
+       Name : Cibi_Sakkaravarthi . K
+       Date : 27-aug-2024 : time 14 :20 
+Description : common.c file of Stegnography project the encoding choose working functions are declared here
+*/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -41,7 +46,6 @@ int main(int argc, char *argv[]){
 			   }
 		   if(read_and_validate_encode_args(argv,&encInfo) == e_success ){
 			   				///validation things are done we procede with the encode
-			printf("validating count");
 			   if (do_encoding(&encInfo) == e_success){
 				   printf("INFO : ## Encoding Done Successfully ##\n");
 			   }
